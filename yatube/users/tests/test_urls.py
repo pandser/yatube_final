@@ -34,7 +34,7 @@ class UsersURLTest(TestCase):
                 ))
 
     def test_url_autheticated_users(self):
-        urls_name_users =[
+        urls_name_users = [
             '/auth/password_change/',
             '/auth/password_change/done/',
         ]
