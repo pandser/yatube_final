@@ -1,9 +1,11 @@
 import os
 
+from django.core.management.utils import get_random_secret_key
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'lxa+mchy3uz#b+^=_b6yf#xit=y*@@&3mp4!ak1+@n^rdpzz0q'
+SECRET_KEY = get_random_secret_key()
 
 DEBUG = True
 

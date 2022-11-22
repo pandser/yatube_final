@@ -30,23 +30,16 @@ def profile(request, username):
     author = get_object_or_404(User, username=username)
     posts = Post.objects.select_related('author').filter(author=author)
     page_obj = paginator(request, posts)
-    if request.user.is_authenticated:
-        following = Follow.objects.filter(
-            user=request.user,
-            author=get_object_or_404(User, username=username),
-        ).exists()
-        context = {
-            'author': author,
-            'following': following,
-            'posts': posts,
-            'page_obj': page_obj,
-        }
-    else:
-        context = {
-            'author': author,
-            'posts': posts,
-            'page_obj': page_obj,
-        }
+    following = request.user.is_authenticated and Follow.objects.filter(
+        user=request.user,
+        author=get_object_or_404(User, username=username),
+    ).exists()
+    context = {
+        'author': author,
+        'following': following,
+        'posts': posts,
+        'page_obj': page_obj,
+    }
     return render(request, 'posts/profile.html', context)
 
 
@@ -143,8 +136,12 @@ def profile_follow(request, username):
 
 @login_required()
 def profile_unfollow(request, username):
-    Follow.objects.filter(
+    if Follow.objects.filter(
         user=request.user,
         author=get_object_or_404(User, username=username),
-    ).delete()
+    ).exists():
+        Follow.objects.filter(
+            user=request.user,
+            author=get_object_or_404(User, username=username),
+        ).delete()
     return redirect('posts:profile', username=username)
