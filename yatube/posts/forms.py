@@ -24,5 +24,7 @@ class CommentForm(forms.ModelForm):
     def clean_text(self):
         data = self.cleaned_data['text']
         if len(data) < MIN_LENGTH_POST:
-            raise forms.ValidationError('Давайте напишем коментарий подлиннее :(')
+            raise forms.ValidationError(
+                'Давайте напишем коментарий подлиннее :('
+            )
         return data
