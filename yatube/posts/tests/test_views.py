@@ -26,23 +26,15 @@ class PostPagesTest(TestCase):
             slug='slug_for_test_group',
             description='description_test_group',
         )
-        cls.uploaded_image = SimpleUploadedFile(
-            name='small.gif',
-            content=SMALL_GIF,
-            content_type='image/gif'
-        )
         cls.post = Post.objects.bulk_create([
             Post(
                 author=cls.user_author,
                 text=f'Текст # {post_number} тестового поста автора author',
-                group=cls.group_1,
-            )
-            if post_number != 14
-            else
-            Post(
-                author=cls.user_author,
-                text=f'Текст # {post_number} тестового поста автора author',
-                image=cls.uploaded_image,
+                image=SimpleUploadedFile(
+                    name=f'small_{post_number}.gif',
+                    content=SMALL_GIF,
+                    content_type='image/gif',
+                ),
                 group=cls.group_1,
             )
             for post_number in range(1, 15)
@@ -108,7 +100,7 @@ class PostPagesTest(TestCase):
                                  'Текст # 14 тестового поста автора author',
                                  'Некоррректное значение поля text')
                 self.assertEqual(post_image,
-                                 'posts/small.gif',
+                                 'posts/small_14.gif',
                                  'Не верное значение прикрепленного файла')
 
     def test_first_page_contains_ten_records(self):

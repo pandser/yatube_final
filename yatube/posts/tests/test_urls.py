@@ -19,6 +19,14 @@ class PostURLTests(TestCase):
             author=cls.user_author,
             text='Текст тестового поста автора author',
         )
+        cls.template_urls_names = (
+            ('/', 'posts/index.html'),
+            (f'/group/{cls.group.slug}/', 'posts/group_list.html'),
+            (f'/profile/{cls.user_author}/', 'posts/profile.html'),
+            (f'/posts/{cls.post.pk}/', 'posts/post_detail.html'),
+            (f'/posts/{cls.post.pk}/edit/', 'posts/create_post.html'),
+            ('/create/', 'posts/create_post.html'),
+        )
 
     def setUp(self):
         self.authorized_client_author = Client()
@@ -62,15 +70,7 @@ class PostURLTests(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_urls_uses_correct_template(self):
-        template_urls_name = {
-            '/': 'posts/index.html',
-            f'/group/{self.group.slug}/': 'posts/group_list.html',
-            f'/profile/{self.user_author}/': 'posts/profile.html',
-            f'/posts/{self.post.pk}/': 'posts/post_detail.html',
-            f'/posts/{self.post.pk}/edit/': 'posts/create_post.html',
-            '/create/': 'posts/create_post.html',
-        }
-        for url, template in template_urls_name.items():
+        for url, template in self.template_urls_names:
             with self.subTest(url=url):
                 response = self.authorized_client_author.get(url)
                 self.assertTemplateUsed(response, template)

@@ -34,13 +34,12 @@ class PostCreateFormTest(TestCase):
             content=SMALL_GIF,
             content_type='image/gif',
         )
-        form_data = {
-            'text': 'Валидный тестовый пост',
-            'image': uploaded_image,
-        }
         response = self.client.post(
             reverse('posts:post_create'),
-            data=form_data,
+            data={
+                'text': 'Валидный тестовый пост',
+                'image': uploaded_image,
+            },
             follow=True,
         )
         self.assertEqual(
@@ -61,12 +60,11 @@ class PostCreateFormTest(TestCase):
 
     def test_edit_valid_post(self):
         post_before = Post.objects.get(pk=1).text
-        form_data = {
-            'text': 'Измененный валидный тестовый пост',
-        }
         self.client.post(
             reverse('posts:post_edit', kwargs={'post_id': 1}),
-            data=form_data,
+            data={
+                'text': 'Измененный валидный тестовый пост',
+            },
             follow=True,
         )
         post_after = Post.objects.get(pk=1).text
@@ -95,12 +93,11 @@ class CommentCreateFormTest(TestCase):
 
     def test_create_comment(self):
         comments = Comment.objects.filter(post_id=1).count()
-        form_data = {
-            'text': 'Второй комментарий',
-        }
         self.authorized_client.post(
             reverse('posts:add_comment', kwargs={'post_id': 1}),
-            data=form_data,
+            data={
+                'text': 'Второй комментарий',
+            },
             follow=True,
         )
         self.assertEqual(
@@ -111,12 +108,11 @@ class CommentCreateFormTest(TestCase):
 
     def test_create_comment_not_authorized_client(self):
         comments = Comment.objects.filter(post_id=1).count()
-        form_data = {
-            'text': 'Коментарий не авторизованного пользователя'
-        }
         self.client.post(
             reverse('posts:add_comment', kwargs={'post_id': 1}),
-            data=form_data,
+            data={
+                'text': 'Коментарий не авторизованного пользователя'
+            },
             follow=True,
         )
         self.assertNotEqual(
