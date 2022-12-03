@@ -1,9 +1,22 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Об авторе проекта{% endblock %}
 {% block content %}
-<h1>Привет, я автор</h1>
-<p>
-  Тут я размещу информацию о себе, используя свои умения верстать.
-  Картинки, блоки, элементы бустрап. А может быть, просто напишу несколько абзацев текста. 
-</p>
+  <div class="container py-5">
+  <h1>Чуточку о себе.</h1>
+    <br>
+    <div class="fs-4">
+      <p>
+        Привет, меня зовут Андрей. А это мой учебный проект, с помощью которого,
+        я стараюсь хоть немного разобраться с такими словами, как Python, Django,
+        HTML, CSS.
+      </p>
+      <div class="figure-img">
+        <a href="https://github.com/pandser/">
+          <img src="{% static 'img/about/GitHub.png' %}">
+        </a>
+      </div>
+
+    </div>
+  </div>
 {% endblock %} 

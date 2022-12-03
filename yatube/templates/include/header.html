@@ -7,35 +7,11 @@
     </a>
     {% with request.resolver_match.view_name as view_name %}
     <ul class="nav nav-pills">
-      <li class="nav-item">
-        <a class="nav-link {% if view_name  == 'about:author' %}
-          active
-          {% endif %}"
-          href="{% url 'about:author' %}">
-          Об авторе
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {% if view_name  == 'about:tech' %}
-          active
-          {% endif %}"
-          href="{% url 'about:tech' %}">
-          Технологии
-        </a>
-      </li>
       {% if user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link " href="{% url 'posts:post_create' %}">
           Новая запись
         </a>
-{#      {% if user == post.author %}#}
-{#      </li>#}
-{#        <li class="nav-item">#}
-{#        <a class="nav-link " href="{% url 'posts:post_edit' post.id %}">#}
-{#          Редактировать запись#}
-{#        </a>#}
-{#      </li>#}
-{#        {% endif %}#}
       <li class="nav-item">
         <a class="nav-link link-light"
            href="{% url 'users:password_change' %}">

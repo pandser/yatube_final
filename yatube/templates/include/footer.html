@@ -1,1 +1,19 @@
+{% with request.resolver_match.view_name as view_name %}
+  <li class="list-inline-item">
+    <a class="dropdown-item {% if view_name  == 'about:author' %}
+      active
+      {% endif %}"
+      href="{% url 'about:author' %}">
+      Об авторе
+    </a>
+  </li>
+  <li class="list-inline-item">
+    <a class="dropdown-item {% if view_name  == 'about:tech' %}
+      active
+      {% endif %}"
+      href="{% url 'about:tech' %}">
+      Технологии
+    </a>
+  </li>
+{% endwith %}
 <p>© {{ year }} Copyright <span style="color:red">Ya</span>tube</p>

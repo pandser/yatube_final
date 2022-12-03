@@ -1,15 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Технологии{% endblock %}
 {% block content %}
-{% comment %} Колонки с отступом сверху и снизу {% endcomment %}
-<div class="row">
+<div class="row text-center">
   <h1>Вот что я умею</h1>
-  {% comment %}
-    Боковой блок со списком технологий
-    Займет всю ширину блока на мобильном
-    и 25% при размерах экрана ≥768px
-  {% endcomment %}
-  <aside class="col-12 col-md-3">
+  <hr>
+  <aside class="col-12 col-md-3 text-start">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
         Python
@@ -17,18 +12,17 @@
       <li class="list-group-item">
         Django
       </li>
+       <li class="list-group-item">
+        HTML
+      </li>
+       <li class="list-group-item">
+        CSS
+      </li>
     </ul>
   </aside>
-  {% comment %}
-    Статья
-    Займет всю ширину блока на мобильном
-    и 75% при размерах экрана ≥768px
-  {% endcomment %}
-  <article class="col-12 col-md-9">
-    <p>Текст страницы "Технологии"</p>
-    <p> Здесь будут описаны использованные технологии</p>
-    <p>первая технология</p>
-    <p>вторая технология</p>
+  <article class="col-12 col-md-9 text-start">
+    <p class="fs-4">При написании данного проекта использовался фреймворк Django для вэб-приложений на языке Python.
+    HTML-шаблоны с использованим CSS стилей фреймворка Bootstrap.</p>
   </article>
 </div>
 {% endblock %}
